@@ -1,28 +1,111 @@
 /* ============================================================
-   PROSE.CSS - Traditional Novel Reading Theme
+   PROSE.CSS - Chapter Reading Theme with Background
    ============================================================
-   This theme creates a clean, comfortable reading experience
-   similar to web novel sites. Optimized for long-form text.
+   Features:
+   - Full-page background image
+   - Banner image at top of chapter (centered)
+   - Semi-transparent content container for text
+   - Clean, comfortable reading experience
    
    Apply this theme by adding class="theme-prose" to <body>
-   or to the main content container.
    ============================================================ */
 
 /* ------------------------------------------------------------
-   CHAPTER CONTAINER
+   PAGE BACKGROUND
+   ------------------------------------------------------------ */
+
+.theme-prose {
+  background-color: #0a0a0f;
+  min-height: 100vh;
+}
+
+/* Background image - set via inline style or here */
+.theme-prose.has-background {
+  background-image: url('../../assets/images/chapter_background.png');
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* ------------------------------------------------------------
+   CHAPTER BANNER (Top Image) - CENTERED
+   ------------------------------------------------------------ */
+
+.chapter-banner {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0a0a0f;
+}
+
+.chapter-banner img {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Gradient fade at bottom of banner */
+.chapter-banner::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to top, #0a0a0f, transparent);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   MAIN CHAPTER CONTAINER
    ------------------------------------------------------------ */
 
 .theme-prose .chapter {
-  max-width: var(--content-max-width);
+  max-width: 950px;
   margin: 0 auto;
-  padding: var(--spacing-lg) var(--spacing-md);
+  padding: 0 var(--spacing-md) var(--spacing-xl);
 }
 
-/* Extra padding on larger screens for breathing room */
-@media (min-width: 768px) {
-  .theme-prose .chapter {
-    padding: var(--spacing-xl) var(--spacing-lg);
-  }
+/* ------------------------------------------------------------
+   CONTENT CONTAINER (The visible box behind text)
+   ------------------------------------------------------------ */
+
+.chapter-content-wrapper {
+  /* Semi-transparent dark box */
+  background: rgba(15, 15, 25, 0.95);
+  
+  /* Subtle border for definition */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  
+  /* Padding inside the box */
+  padding: var(--spacing-xl) var(--spacing-xl);
+  
+  /* Overlap with banner slightly */
+  margin-top: -40px;
+  position: relative;
+  z-index: 1;
+  
+  /* Subtle shadow */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Optional glow effect */
+.chapter-content-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.1), transparent, rgba(128, 90, 213, 0.1));
+  z-index: -1;
+  opacity: 0.5;
 }
 
 /* ------------------------------------------------------------
@@ -33,85 +116,74 @@
   text-align: center;
   margin-bottom: var(--spacing-xl);
   padding-bottom: var(--spacing-lg);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .theme-prose .chapter-number {
   display: block;
-  font-size: calc(0.85rem * var(--font-scale));
+  font-size: calc(0.8rem * var(--font-scale));
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-accent);
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.4);
   margin-bottom: var(--spacing-sm);
 }
 
 .theme-prose .chapter-title {
-  font-family: var(--font-prose);
-  font-size: calc(1.8rem * var(--font-scale));
+  font-family: 'Georgia', serif;
+  font-size: calc(2rem * var(--font-scale));
   font-weight: 400;
-  font-style: italic;
-  color: var(--color-text-primary);
+  letter-spacing: 0.1em;
+  color: #fff;
   margin: 0;
 }
 
-/* Optional subtitle or date */
 .theme-prose .chapter-meta {
   margin-top: var(--spacing-sm);
   font-size: calc(0.85rem * var(--font-scale));
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 /* ------------------------------------------------------------
-   PROSE CONTENT - The actual story text
+   PROSE CONTENT
    ------------------------------------------------------------ */
 
 .theme-prose .chapter-content {
   font-family: var(--font-prose);
   font-size: calc(var(--font-size-base) * var(--font-scale));
   line-height: var(--line-height-prose);
-  color: var(--color-text-primary);
+  color: rgba(255, 255, 255, 0.9);
 }
 
-/* Paragraphs */
 .theme-prose .chapter-content p {
   margin-bottom: 1.5em;
   text-align: justify;
-  
-  /* Prevent single words on last line */
   text-wrap: pretty;
 }
 
-/* First paragraph after a break - no indent, drop cap option */
+/* First paragraph - no indent */
 .theme-prose .chapter-content p:first-of-type {
   text-indent: 0;
 }
 
-/* Subsequent paragraphs - indent first line (book style) */
-/* Uncomment below if you prefer indented paragraphs instead of spacing */
-/*
-.theme-prose .chapter-content p + p {
-  text-indent: 2em;
-  margin-top: -0.5em;
-}
-*/
+/* ------------------------------------------------------------
+   SCENE BREAKS
+   ------------------------------------------------------------ */
 
-/* Scene breaks / section dividers */
 .theme-prose .scene-break {
   text-align: center;
   margin: var(--spacing-xl) 0;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.3);
   font-size: calc(1.2rem * var(--font-scale));
   letter-spacing: 0.5em;
 }
 
-/* Alternative: decorative line break */
 .theme-prose .scene-break-line {
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
   margin: var(--spacing-xl) 0;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .theme-prose .scene-break-line::before,
@@ -119,67 +191,57 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--color-border),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
 }
 
 /* ------------------------------------------------------------
-   TEXT STYLING WITHIN PROSE
+   TEXT STYLING
    ------------------------------------------------------------ */
 
-/* Emphasis */
 .theme-prose .chapter-content em {
   font-style: italic;
 }
 
 .theme-prose .chapter-content strong {
   font-weight: 600;
+  color: #fff;
 }
 
-/* Thoughts or internal monologue - italicized */
+/* Thoughts / Internal monologue */
 .theme-prose .thought {
   font-style: italic;
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.7);
 }
 
-/* Dialogue - can be styled differently if desired */
-.theme-prose .dialogue {
-  /* Default: same as regular text */
-}
-
-/* Special text - system messages, notifications in the story */
+/* System text inline */
 .theme-prose .system-text {
   font-family: var(--font-mono);
   font-size: calc(0.9rem * var(--font-scale));
-  color: var(--color-accent);
-  background-color: var(--color-accent-subtle);
+  color: #7eb8ff;
+  background: rgba(74, 158, 255, 0.1);
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: 4px;
-  display: inline;
 }
 
-/* Block-level system message */
+/* System block */
 .theme-prose .system-block {
   font-family: var(--font-mono);
   font-size: calc(0.9rem * var(--font-scale));
-  background-color: var(--color-accent-subtle);
-  border-left: 3px solid var(--color-accent);
+  background: rgba(74, 158, 255, 0.1);
+  border-left: 3px solid #4a9eff;
   padding: var(--spacing-md);
   margin: var(--spacing-lg) 0;
   border-radius: 0 6px 6px 0;
+  color: #7eb8ff;
 }
 
-/* Whispered or quiet text */
+/* Whisper */
 .theme-prose .whisper {
   font-size: calc(0.9em * var(--font-scale));
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.5);
 }
 
-/* Shouted or loud text */
+/* Shout */
 .theme-prose .shout {
   font-weight: 600;
   text-transform: uppercase;
@@ -187,16 +249,16 @@
 }
 
 /* ------------------------------------------------------------
-   BLOCKQUOTES & EXCERPTS
+   BLOCKQUOTES
    ------------------------------------------------------------ */
 
 .theme-prose .chapter-content blockquote {
   margin: var(--spacing-lg) 0;
   padding: var(--spacing-md) var(--spacing-lg);
-  border-left: 3px solid var(--color-accent);
-  background-color: var(--color-bg-secondary);
+  border-left: 3px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.03);
   font-style: italic;
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .theme-prose .chapter-content blockquote cite {
@@ -204,7 +266,7 @@
   margin-top: var(--spacing-sm);
   font-size: calc(0.85rem * var(--font-scale));
   font-style: normal;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .theme-prose .chapter-content blockquote cite::before {
@@ -212,51 +274,28 @@
 }
 
 /* ------------------------------------------------------------
-   POPUP TRIGGERS IN PROSE
-   ------------------------------------------------------------
-   Elements that trigger system popups when scrolled into view
-   or clicked. These are invisible markers in the text.
-   ------------------------------------------------------------ */
-
-/* Scroll trigger - invisible marker */
-.theme-prose .popup-trigger {
-  /* Invisible but takes up no space */
-  position: relative;
-}
-
-/* Clickable trigger - looks like a link or special text */
-.theme-prose .popup-trigger-click {
-  color: var(--color-accent);
-  cursor: pointer;
-  border-bottom: 1px dashed var(--color-accent);
-  transition: all var(--transition-fast);
-}
-
-.theme-prose .popup-trigger-click:hover {
-  background-color: var(--color-accent-subtle);
-}
-
-/* ------------------------------------------------------------
-   AUTHOR'S NOTES (Optional)
+   AUTHOR'S NOTE
    ------------------------------------------------------------ */
 
 .theme-prose .author-note {
   margin-top: var(--spacing-xl);
   padding: var(--spacing-lg);
-  background-color: var(--color-bg-secondary);
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   font-size: calc(0.9rem * var(--font-scale));
 }
 
 .theme-prose .author-note-header {
   font-weight: 600;
-  color: var(--color-accent);
+  color: rgba(255, 255, 255, 0.6);
   margin-bottom: var(--spacing-sm);
 }
 
 .theme-prose .author-note p {
   text-align: left;
   margin-bottom: var(--spacing-sm);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .theme-prose .author-note p:last-child {
@@ -264,30 +303,84 @@
 }
 
 /* ------------------------------------------------------------
+   CHAPTER NAVIGATION (inside content wrapper)
+   ------------------------------------------------------------ */
+
+.theme-prose .chapter-nav {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-prose .chapter-nav-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.theme-prose .chapter-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.theme-prose .chapter-nav-center {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ------------------------------------------------------------
+   COMMENTS SECTION
+   ------------------------------------------------------------ */
+
+.theme-prose .comments-section {
+  background: rgba(15, 15, 25, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: var(--spacing-xl);
+  margin-top: var(--spacing-lg);
+}
+
+.theme-prose .comments-header {
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ------------------------------------------------------------
    MOBILE OPTIMIZATIONS
    ------------------------------------------------------------ */
 
-@media (max-width: 600px) {
-  .theme-prose .chapter-content p {
-    /* Left-align on mobile for easier reading */
-    text-align: left;
+@media (max-width: 768px) {
+  .chapter-banner {
+    max-height: 200px;
+  }
+  
+  .chapter-content-wrapper {
+    padding: var(--spacing-lg) var(--spacing-md);
+    margin-top: -20px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
   
   .theme-prose .chapter-title {
     font-size: calc(1.5rem * var(--font-scale));
   }
+  
+  .theme-prose .chapter-content p {
+    text-align: left;
+  }
 }
 
 /* ------------------------------------------------------------
-   PRINT STYLES (if readers want to print chapters)
+   PRINT STYLES
    ------------------------------------------------------------ */
 
 @media print {
-  .theme-prose .chapter {
-    max-width: 100%;
-    padding: 0;
+  .theme-prose {
+    background: white;
   }
   
+  .chapter-banner,
   .site-header,
   .chapter-nav,
   .comments-section,
@@ -295,8 +388,14 @@
     display: none;
   }
   
+  .chapter-content-wrapper {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+  }
+  
   .theme-prose .chapter-content {
+    color: black;
     font-size: 12pt;
-    line-height: 1.6;
   }
 }
