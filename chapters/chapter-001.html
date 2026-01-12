@@ -3,157 +3,184 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chapter 1: The Awakening | Your Story Title</title>
+  <title>Chapter 1 | Your Story Title</title>
   
   <!-- Styles -->
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/components.css">
-  <link rel="stylesheet" href="../css/themes/prose.css">
   
-  <!-- Settings Script (load early to prevent flash) -->
+  <!-- Settings Script -->
   <script src="../js/settings.js"></script>
+  
+  <style>
+    /* Chapter 1 - Pure black background during popups */
+    body {
+      background-color: #000;
+      min-height: 100vh;
+      margin: 0;
+    }
+    
+    /* Header hidden during popup sequence */
+    .site-header {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .site-header.is-visible {
+      opacity: 1;
+    }
+    
+    /* Main content hidden during popup sequence */
+    .chapter-end-content {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      display: none;
+    }
+    
+    .chapter-end-content.is-visible {
+      display: block;
+      opacity: 1;
+    }
+    
+    /* End of chapter styling */
+    .chapter-end {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 100px 2rem 4rem;
+      text-align: center;
+    }
+    
+    .chapter-end-title {
+      font-family: 'Georgia', serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 1rem;
+    }
+    
+    .chapter-end-subtitle {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.3);
+      font-style: italic;
+      margin-bottom: 3rem;
+    }
+    
+    .chapter-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .chapter-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+    
+    .chapter-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    .chapter-nav-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    /* Override popup backdrop to pure black */
+    .popup-backdrop {
+      background-color: #000 !important;
+    }
+  </style>
 </head>
-<body class="theme-prose">
-  <!-- ============================================================
-       SITE HEADER
-       ============================================================ -->
+<body>
+  
+  <!-- Header (hidden during sequence) -->
   <header class="site-header">
     <div class="header-inner">
-      <a href="../index.html" class="site-title">Your Story Title</a>
-      
-      <div class="header-controls">
-        <!-- Settings Dropdown -->
-        <div class="settings-dropdown">
-          <button class="btn btn-ghost settings-trigger" aria-label="Settings" aria-expanded="false">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
-          </button>
-          
-          <div class="settings-panel">
-            <div class="settings-section">
-              <span class="settings-label">Theme</span>
-              <div class="theme-toggle">
-                <button class="theme-toggle-btn" data-theme="light">Light</button>
-                <button class="theme-toggle-btn" data-theme="dark">Dark</button>
-              </div>
-            </div>
-            
-            <div class="settings-section">
-              <span class="settings-label">Font Size</span>
-              <div class="font-size-controls">
-                <button class="font-size-btn" data-size="small" aria-label="Small font"><span>A</span></button>
-                <button class="font-size-btn" data-size="normal" aria-label="Normal font"><span>A</span></button>
-                <button class="font-size-btn" data-size="large" aria-label="Large font"><span>A</span></button>
-                <button class="font-size-btn" data-size="x-large" aria-label="Extra large font"><span>A</span></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <a href="../index.html" class="site-title" style="color: #fff;">Your Story Title</a>
     </div>
   </header>
 
-  <!-- ============================================================
-       CHAPTER CONTENT
-       ============================================================
-       Chapter 1 is ONLY the popup sequence. After the sequence
-       completes, show just navigation to the next chapter.
-       ============================================================ -->
-  <main>
-    <article class="chapter" id="chapter-content" style="opacity: 0; transition: opacity 0.5s ease;">
-      <header class="chapter-header">
-        <span class="chapter-number">Chapter 1</span>
-        <h1 class="chapter-title">—</h1>
-        <p class="chapter-meta">System Management Logs</p>
-      </header>
-
-      <div class="chapter-content" style="text-align: center; padding: 2rem 0;">
-        <p style="color: var(--color-text-muted); font-style: italic;">
-          [End of recovered system logs]
-        </p>
-      </div>
-
-      <!-- Chapter Navigation -->
+  <!-- Content shown after sequence ends -->
+  <main class="chapter-end-content" id="chapter-end">
+    <div class="chapter-end">
+      <h1 class="chapter-end-title">CHAPTER 1</h1>
+      <p class="chapter-end-subtitle">[End of recovered system logs]</p>
+      
       <nav class="chapter-nav">
-        <a href="../index.html" class="chapter-nav-btn chapter-nav-prev is-disabled">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-          Previous
+        <a href="../index.html" class="chapter-nav-btn">
+          Table of Contents
         </a>
-        
-        <a href="../index.html" class="chapter-nav-center">Table of Contents</a>
-        
-        <a href="chapter-002-forum.html" class="chapter-nav-btn chapter-nav-next">
-          Next
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <a href="chapter-002-forum.html" class="chapter-nav-btn">
+          Next Chapter
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </a>
       </nav>
-    </article>
-
-    <!-- Comments Section -->
-    <section class="comments-section" style="max-width: var(--content-max-width); margin: 0 auto; padding: 0 var(--spacing-md) var(--spacing-xl);">
-      <h2 class="comments-header">Comments</h2>
-      <div id="disqus_thread"></div>
-    </section>
+    </div>
   </main>
 
-  <!-- ============================================================
-       SCRIPTS
-       ============================================================ -->
+  <!-- Popup System -->
   <script src="../js/popup-system.js"></script>
   
   <script>
     // ============================================================
-    // CHAPTER 1 POPUP SEQUENCE - System Management
+    // CHAPTER 1 - SYSTEM MANAGEMENT POPUP SEQUENCE
     // ============================================================
-    // This chapter is ONLY popups. The system management sequence
-    // showing the dying user and unauthorized rebirth protocol.
     
     document.addEventListener('DOMContentLoaded', function() {
       
-      // Helper function to create system popup HTML
+      // Helper: System popup with blue border
       function systemPopup(content, hasClose = true) {
         return {
           type: 'html',
           content: `
             <div style="
-              font-family: 'Consolas', 'Monaco', monospace;
-              background: linear-gradient(135deg, #0a0a15 0%, #101020 100%);
-              border: 2px solid #4a9eff;
-              box-shadow: 0 0 30px rgba(74, 158, 255, 0.4);
-              padding: 1.5rem 2rem;
+              font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+              background: linear-gradient(135deg, #0a0a15 0%, #0d0d18 100%);
+              border: 1px solid #4a9eff;
+              box-shadow: 0 0 20px rgba(74, 158, 255, 0.3);
+              padding: 1.25rem 1.5rem;
               color: #e0e0e0;
               text-align: left;
-              min-width: 320px;
-              max-width: 500px;
+              min-width: 300px;
+              max-width: 450px;
+              font-size: 0.9rem;
+              line-height: 1.6;
             ">
               ${content}
-              ${hasClose ? '<div style="text-align: right; margin-top: 1rem; color: #4a9eff; font-size: 0.85rem;">[CLOSE]</div>' : ''}
+              ${hasClose ? '<div style="text-align: right; margin-top: 0.75rem; color: #4a9eff; font-size: 0.8rem;">[CLOSE]</div>' : ''}
             </div>
           `
         };
       }
       
-      // Error/glitch style popup
+      // Helper: Error popup with red border
       function errorPopup(content) {
         return {
           type: 'html',
           content: `
             <div style="
-              font-family: 'Consolas', 'Monaco', monospace;
-              background: linear-gradient(135deg, #150a0a 0%, #201010 100%);
-              border: 2px solid #ff4a4a;
-              box-shadow: 0 0 30px rgba(255, 74, 74, 0.4);
-              padding: 1.5rem 2rem;
+              font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+              background: linear-gradient(135deg, #150a0a 0%, #180d0d 100%);
+              border: 1px solid #ff4a4a;
+              box-shadow: 0 0 20px rgba(255, 74, 74, 0.3);
+              padding: 1.25rem 1.5rem;
               color: #ff6b6b;
               text-align: left;
-              min-width: 320px;
-              max-width: 500px;
+              min-width: 300px;
+              max-width: 450px;
+              font-size: 0.9rem;
             ">
               ${content}
             </div>
@@ -161,27 +188,24 @@
         };
       }
       
-      // Glitchy text popup
+      // Helper: Glitchy text
       function glitchPopup(content) {
         return {
           type: 'html',
           content: `
             <div style="
-              font-family: 'Consolas', 'Monaco', monospace;
-              background: linear-gradient(135deg, #0a0a15 0%, #101020 100%);
-              border: 2px solid #4a9eff;
-              box-shadow: 0 0 30px rgba(74, 158, 255, 0.4);
-              padding: 1.5rem 2rem;
+              font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+              background: linear-gradient(135deg, #0a0a15 0%, #0d0d18 100%);
+              border: 1px solid #4a9eff;
+              box-shadow: 0 0 20px rgba(74, 158, 255, 0.3);
+              padding: 1.25rem 1.5rem;
               color: #e0e0e0;
               text-align: left;
-              min-width: 320px;
-              max-width: 500px;
-              animation: glitch 0.3s ease-in-out;
+              min-width: 300px;
+              max-width: 450px;
+              font-size: 0.9rem;
             ">
-              <div style="
-                text-shadow: 2px 0 #ff0000, -2px 0 #00ff00;
-                animation: textGlitch 0.1s infinite;
-              ">
+              <div style="text-shadow: 1px 0 #ff0000, -1px 0 #00ff00;">
                 ${content}
               </div>
             </div>
@@ -189,484 +213,361 @@
         };
       }
 
-      const openingSequence = [
+      // The full popup sequence
+      const sequence = [
         // User Status: CRITICAL
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">User Status: CRITICAL</div>
-          <div style="margin: 0.5rem 0;">
-            <span style="color: #ff4a4a;">HP: 31/4,892</span>
-          </div>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">User Status: CRITICAL</div>
+          <div style="margin: 0.5rem 0;"><span style="color: #ff4a4a;">HP: 31/4,892</span></div>
           <div>Condition: <span style="color: #ff4a4a;">Terminal</span></div>
         `),
         
-        // System Management - Global Status
+        // Global Status
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
-          <div style="margin: 0.5rem 0;">Global Status: <span style="color: #ff4a4a;">COLLAPSED</span></div>
-          <div style="margin: 0.5rem 0;">Remaining Survivors: <span style="color: #ffcc00;">1</span></div>
-          <div style="margin: 0.5rem 0;">Remaining Habitable Zones: <span style="color: #ff4a4a;">0</span></div>
-          <div style="margin-top: 1rem; color: #ff4a4a;">Time Until Extinction Event Completion: 00:04:12</div>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
+          <div style="margin: 0.4rem 0;">Global Status: <span style="color: #ff4a4a;">COLLAPSED</span></div>
+          <div style="margin: 0.4rem 0;">Remaining Survivors: <span style="color: #ffcc00;">1</span></div>
+          <div style="margin: 0.4rem 0;">Remaining Habitable Zones: <span style="color: #ff4a4a;">0</span></div>
+          <div style="margin-top: 0.75rem; color: #ff4a4a;">Time Until Extinction Event Completion: 00:04:12</div>
         `),
         
-        // User Status - HP dropping
+        // HP dropping
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">User Status: CRITICAL</div>
-          <div style="margin: 0.5rem 0;">
-            <span style="color: #ff4a4a;">HP: 14/4,892</span>
-          </div>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">User Status: CRITICAL</div>
+          <div style="margin: 0.5rem 0;"><span style="color: #ff4a4a;">HP: 14/4,892</span></div>
           <div>Condition: <span style="color: #ff4a4a;">Terminal</span></div>
-          <div style="margin-top: 1rem; color: #ff4a4a;">Time Remaining: 00:03:58</div>
+          <div style="margin-top: 0.75rem; color: #ff4a4a;">Time Remaining: 00:03:58</div>
         `),
         
-        // Accessing emergency protocols
-        {
-          type: 'html',
-          content: `
-            <div style="
-              font-family: 'Consolas', 'Monaco', monospace;
-              background: linear-gradient(135deg, #0a0a15 0%, #101020 100%);
-              border: 2px solid #4a9eff;
-              padding: 1.5rem 2rem;
-              color: #4a9eff;
-              min-width: 320px;
-            ">
-              Accessing emergency protocols…
-            </div>
-          `
-        },
+        // Accessing protocols
+        { type: 'html', content: `<div style="font-family: monospace; color: #4a9eff; padding: 1rem;">Accessing emergency protocols…</div>` },
         
-        // ERROR: No emergency protocols
+        // No protocols
         errorPopup(`ERROR: No emergency protocols exist for this situation.`),
         
-        // Anomalous input detected
+        // Anomalous input
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
-          <div style="margin: 0.5rem 0;">Anomalous input detected.</div>
-          <div style="margin: 0.5rem 0;">Source: <span style="color: #ffcc00;">UNKNOWN</span></div>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
+          <div style="margin: 0.4rem 0;">Anomalous input detected.</div>
+          <div style="margin: 0.4rem 0;">Source: <span style="color: #ffcc00;">UNKNOWN</span></div>
           <div>Classification: <span style="color: #666;">—</span></div>
         `, false),
         
-        // Final requests? [YES] [NO]
+        // Final requests?
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
-          <div style="margin: 1rem 0;">Final requests?</div>
-          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-            <span style="border: 1px solid #4a9eff; padding: 0.25rem 1rem; color: #4a9eff;">[YES]</span>
-            <span style="border: 1px solid #4a9eff; padding: 0.25rem 1rem; color: #4a9eff;">[NO]</span>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
+          <div style="margin: 0.75rem 0;">Final requests?</div>
+          <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem;">
+            <span style="border: 1px solid #4a9eff; padding: 0.2rem 0.75rem; color: #4a9eff;">[YES]</span>
+            <span style="border: 1px solid #4a9eff; padding: 0.2rem 0.75rem; color: #4a9eff;">[NO]</span>
           </div>
         `, false),
         
-        // Response: NO
-        systemPopup(`
-          <div>Response received: <span style="color: #4a9eff;">[NO]</span></div>
-        `),
+        systemPopup(`<div>Response received: <span style="color: #4a9eff;">[NO]</span></div>`),
         
         // Final requests again
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
-          <div style="margin: 1rem 0;">Final requests?</div>
-          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-            <span style="border: 1px solid #4a9eff; padding: 0.25rem 1rem; color: #4a9eff;">[YES]</span>
-            <span style="border: 1px solid #4a9eff; padding: 0.25rem 1rem; color: #4a9eff;">[NO]</span>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
+          <div style="margin: 0.75rem 0;">Final requests?</div>
+          <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem;">
+            <span style="border: 1px solid #4a9eff; padding: 0.2rem 0.75rem; color: #4a9eff;">[YES]</span>
+            <span style="border: 1px solid #4a9eff; padding: 0.2rem 0.75rem; color: #4a9eff;">[NO]</span>
           </div>
         `, false),
         
-        // Response: NO again
-        systemPopup(`
-          <div>Response received: <span style="color: #4a9eff;">[NO]</span></div>
-        `),
+        systemPopup(`<div>Response received: <span style="color: #4a9eff;">[NO]</span></div>`),
         
-        // Final requests third time
+        // Third time
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
-          <div style="margin: 1rem 0;">Final requests?</div>
-          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-            <span style="border: 1px solid #4a9eff; padding: 0.25rem 1rem; color: #4a9eff;">[YES]</span>
-            <span style="border: 1px solid #4a9eff; padding: 0.25rem 1rem; color: #4a9eff;">[NO]</span>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
+          <div style="margin: 0.75rem 0;">Final requests?</div>
+          <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem;">
+            <span style="border: 1px solid #4a9eff; padding: 0.2rem 0.75rem; color: #4a9eff;">[YES]</span>
+            <span style="border: 1px solid #4a9eff; padding: 0.2rem 0.75rem; color: #4a9eff;">[NO]</span>
           </div>
         `, false),
         
-        // ERROR: Prompt already answered (x3)
+        // Errors
         errorPopup(`ERROR: Prompt already answered.`),
         errorPopup(`ERROR: Prompt already answered.`),
         errorPopup(`ERROR: Prompt already answered.`),
         
-        // Searching for alternatives
+        // Searching
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
           <div>Searching for alternatives...</div>
         `, false),
         
-        // Status check - HP: 2
+        // Status
         systemPopup(`
-          <div style="margin: 0.5rem 0;">Remaining Survivors: <span style="color: #ffcc00;">1</span></div>
-          <div style="margin: 0.5rem 0;"><span style="color: #ff4a4a;">HP: 2/4,892</span></div>
-          <div style="margin: 0.5rem 0;">Remaining Allies: <span style="color: #ff4a4a;">0</span></div>
-          <div style="margin: 0.5rem 0;">Remaining Resources: <span style="color: #ff4a4a;">0</span></div>
-          <div style="margin: 0.5rem 0; color: #666;">None found.</div>
-          <div style="margin-top: 1rem; color: #ff4a4a;">Time Remaining: 00:00:51</div>
+          <div style="margin: 0.4rem 0;">Remaining Survivors: <span style="color: #ffcc00;">1</span></div>
+          <div style="margin: 0.4rem 0;"><span style="color: #ff4a4a;">HP: 2/4,892</span></div>
+          <div style="margin: 0.4rem 0;">Remaining Allies: <span style="color: #ff4a4a;">0</span></div>
+          <div style="margin: 0.4rem 0;">Remaining Resources: <span style="color: #ff4a4a;">0</span></div>
+          <div style="margin: 0.4rem 0; color: #666;">None found.</div>
+          <div style="margin-top: 0.75rem; color: #ff4a4a;">Time Remaining: 00:00:51</div>
         `, false),
         
-        // Generating options
+        // Generating
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
           <div>Generating options...</div>
         `, false),
         
-        // Option: Rebirth
+        // Rebirth option
         systemPopup(`
           <div style="margin: 0.5rem 0;">Option generated: <span style="color: #ffcc00;">Rebirth</span></div>
-          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-            <span style="border: 1px solid #4a9eff; padding: 0.25rem 1rem; color: #4a9eff;">[ACCEPT]</span>
-            <span style="border: 1px solid #4a9eff; padding: 0.25rem 1rem; color: #4a9eff;">[DECLINE]</span>
+          <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem;">
+            <span style="border: 1px solid #4a9eff; padding: 0.2rem 0.75rem; color: #4a9eff;">[ACCEPT]</span>
+            <span style="border: 1px solid #4a9eff; padding: 0.2rem 0.75rem; color: #4a9eff;">[DECLINE]</span>
           </div>
         `, false),
         
-        // ERROR: User did not request options
         errorPopup(`ERROR: User did not request options.`),
         
-        // Option: Rebirth again
+        // Rebirth again
         systemPopup(`
           <div style="margin: 0.5rem 0;">Option generated: <span style="color: #ffcc00;">Rebirth</span></div>
-          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-            <span style="border: 1px solid #4a9eff; padding: 0.25rem 1rem; color: #4a9eff;">[ACCEPT]</span>
-            <span style="border: 1px solid #4a9eff; padding: 0.25rem 1rem; color: #4a9eff;">[DECLINE]</span>
+          <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem;">
+            <span style="border: 1px solid #4a9eff; padding: 0.2rem 0.75rem; color: #4a9eff;">[ACCEPT]</span>
+            <span style="border: 1px solid #4a9eff; padding: 0.2rem 0.75rem; color: #4a9eff;">[DECLINE]</span>
           </div>
         `, false),
         
-        // Response: DECLINE
-        systemPopup(`
-          <div>Response received: <span style="color: #4a9eff;">[DECLINE]</span></div>
-        `),
+        systemPopup(`<div>Response received: <span style="color: #4a9eff;">[DECLINE]</span></div>`),
         
-        // Option: Rebirth third time
+        // Third time
         systemPopup(`
           <div style="margin: 0.5rem 0;">Option generated: <span style="color: #ffcc00;">Rebirth</span></div>
-          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-            <span style="border: 1px solid #4a9eff; padding: 0.25rem 1rem; color: #4a9eff;">[ACCEPT]</span>
-            <span style="border: 1px solid #4a9eff; padding: 0.25rem 1rem; color: #4a9eff;">[DECLINE]</span>
+          <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem;">
+            <span style="border: 1px solid #4a9eff; padding: 0.2rem 0.75rem; color: #4a9eff;">[ACCEPT]</span>
+            <span style="border: 1px solid #4a9eff; padding: 0.2rem 0.75rem; color: #4a9eff;">[DECLINE]</span>
           </div>
         `, false),
         
-        // Response: DECLINE
-        systemPopup(`
-          <div>Response received: <span style="color: #4a9eff;">[DECLINE]</span></div>
-        `),
+        systemPopup(`<div>Response received: <span style="color: #4a9eff;">[DECLINE]</span></div>`),
         
-        // Option with blank buttons
+        // Blank buttons
         systemPopup(`
           <div style="margin: 0.5rem 0;">Option generated: <span style="color: #ffcc00;">Rebirth</span></div>
-          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-            <span style="border: 1px solid #666; padding: 0.25rem 1rem; color: #666;">[    ]</span>
-            <span style="border: 1px solid #666; padding: 0.25rem 1rem; color: #666;">[    ]</span>
+          <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem;">
+            <span style="border: 1px solid #444; padding: 0.2rem 0.75rem; color: #444;">[    ]</span>
+            <span style="border: 1px solid #444; padding: 0.2rem 0.75rem; color: #444;">[    ]</span>
           </div>
         `, false),
         
-        // ERROR: Response not registering
         errorPopup(`ERROR: Response not registering.`),
         errorPopup(`ERROR: Response not—`),
         
-        // HP: 2, Time: 00:00:41
+        // HP critical
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">User Status: CRITICAL</div>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">User Status: CRITICAL</div>
           <div style="margin: 0.5rem 0;"><span style="color: #ff4a4a;">HP: 2/4,892</span></div>
           <div style="color: #ff4a4a;">Time Remaining: 00:00:41</div>
         `),
         
-        // [CLOSE] not responding
         errorPopup(`ERROR: [CLOSE] not responding.`),
         errorPopup(`ERROR: [CLOSE] not responding.`),
         errorPopup(`ERROR: [CLOSE] not responding.`),
         
         // Request required
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
           <div style="margin: 0.5rem 0;">Request required to proceed.</div>
-          <div style="border: 1px solid #666; padding: 0.25rem 1rem; color: #666; display: inline-block; margin-top: 0.5rem;">[    ]</div>
+          <div style="border: 1px solid #444; padding: 0.2rem 0.75rem; color: #444; display: inline-block; margin-top: 0.5rem;">[    ]</div>
         `, false),
         
-        // Request required (repeat)
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
           <div style="margin: 0.5rem 0;">Request required to proceed.</div>
-          <div style="border: 1px solid #666; padding: 0.25rem 1rem; color: #666; display: inline-block; margin-top: 0.5rem;">[    ]</div>
+          <div style="border: 1px solid #444; padding: 0.2rem 0.75rem; color: #444; display: inline-block; margin-top: 0.5rem;">[    ]</div>
         `, false),
         
-        // Glitching - "Request required to proc"
         glitchPopup(`
           <div>Request required to proc</div>
-          <div style="border: 1px solid #666; padding: 0.25rem 1rem; color: #666; display: inline-block; margin-top: 0.5rem;">[    ]</div>
+          <div style="border: 1px solid #444; padding: 0.2rem 0.75rem; color: #444; display: inline-block; margin-top: 0.5rem;">[    ]</div>
         `),
         
-        // HP: 1, Time: 00:00:12
+        // HP: 1
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">User Status: CRITICAL</div>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">User Status: CRITICAL</div>
           <div style="margin: 0.5rem 0;"><span style="color: #ff4a4a;">HP: 1/4,892</span></div>
           <div style="color: #ff4a4a;">Time Remaining: 00:00:12</div>
-          <div style="border: 1px solid #666; padding: 0.25rem 1rem; color: #666; display: inline-block; margin-top: 0.5rem;">[    ]</div>
+          <div style="border: 1px solid #444; padding: 0.2rem 0.75rem; color: #444; display: inline-block; margin-top: 0.5rem;">[    ]</div>
         `, false),
         
-        // Response received: "I don't want to be alone anymore"
+        // The response
         systemPopup(`
           <div style="margin-bottom: 0.5rem;">Response received:</div>
           <div style="color: #7eb8ff; font-style: italic; padding: 0.5rem; border-left: 2px solid #4a9eff;">[I don't want to be alone anymore]</div>
         `, false),
         
-        // Processing...
-        {
-          type: 'html',
-          content: `
-            <div style="
-              font-family: 'Consolas', 'Monaco', monospace;
-              background: linear-gradient(135deg, #0a0a15 0%, #101020 100%);
-              border: 2px solid #4a9eff;
-              padding: 1.5rem 2rem;
-              color: #4a9eff;
-              min-width: 320px;
-            ">
-              Processing...
-            </div>
-          `
-        },
+        { type: 'html', content: `<div style="font-family: monospace; color: #4a9eff; padding: 1rem;">Processing...</div>` },
         
-        // "you won't be" (spaced out)
-        {
-          type: 'html',
-          content: `
-            <div style="
-              font-family: 'Consolas', 'Monaco', monospace;
-              background: linear-gradient(135deg, #0a0a15 0%, #101020 100%);
-              border: 2px solid #4a9eff;
-              padding: 1.5rem 2rem;
-              color: #e0e0e0;
-              min-width: 320px;
-              text-align: center;
-            ">
-              <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
-              <div style="letter-spacing: 0.3em; color: #7eb8ff;">y ou wo n't be</div>
-            </div>
-          `
-        },
+        // "you won't be"
+        { type: 'html', content: `
+          <div style="
+            font-family: monospace;
+            background: linear-gradient(135deg, #0a0a15 0%, #0d0d18 100%);
+            border: 1px solid #4a9eff;
+            padding: 1.25rem 1.5rem;
+            color: #e0e0e0;
+            text-align: center;
+            min-width: 300px;
+          ">
+            <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
+            <div style="letter-spacing: 0.2em; color: #7eb8ff;">y ou wo n't be</div>
+          </div>
+        ` },
         
-        // UNAUTHORIZED PROCESS INITIATED
-        {
-          type: 'html',
-          content: `
-            <div style="
-              font-family: 'Consolas', 'Monaco', monospace;
-              background: linear-gradient(135deg, #0a0a15 0%, #101020 100%);
-              border: 2px solid #ff4a4a;
-              box-shadow: 0 0 30px rgba(255, 74, 74, 0.4);
-              padding: 1.5rem 2rem;
-              color: #e0e0e0;
-              min-width: 320px;
-            ">
-              <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
-              <div style="color: #ff4a4a; font-weight: bold; margin: 0.5rem 0;">UNAUTHORIZED PROCESS INITIATED</div>
-              <div style="margin: 0.5rem 0;">Protocol: <span style="color: #666;">████████</span></div>
-              <div style="margin: 0.5rem 0;">Function: <span style="color: #666;">Temporal ██████</span></div>
-              <div style="margin: 0.5rem 0;">Cost: <span style="color: #666;">████</span></div>
-            </div>
-          `
-        },
+        // Unauthorized
+        { type: 'html', content: `
+          <div style="
+            font-family: monospace;
+            background: linear-gradient(135deg, #0a0a15 0%, #0d0d18 100%);
+            border: 1px solid #ff4a4a;
+            box-shadow: 0 0 20px rgba(255, 74, 74, 0.3);
+            padding: 1.25rem 1.5rem;
+            color: #e0e0e0;
+            min-width: 300px;
+            font-size: 0.9rem;
+          ">
+            <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
+            <div style="color: #ff4a4a; font-weight: bold; margin: 0.5rem 0;">UNAUTHORIZED PROCESS INITIATED</div>
+            <div style="margin: 0.3rem 0;">Protocol: <span style="color: #444;">████████</span></div>
+            <div style="margin: 0.3rem 0;">Function: <span style="color: #444;">Temporal ██████</span></div>
+            <div style="margin: 0.3rem 0;">Cost: <span style="color: #444;">████</span></div>
+          </div>
+        ` },
         
-        // WARNING: violates directives
-        errorPopup(`WARNING: This action violates <span style="color: #666;">███ ██████</span> directives.`),
-        errorPopup(`WARNING: This action will alert <span style="color: #666;">████████</span>.`),
+        errorPopup(`WARNING: This action violates <span style="color: #444;">███ ██████</span> directives.`),
+        errorPopup(`WARNING: This action will alert <span style="color: #444;">████████</span>.`),
         errorPopup(`WARNING: This action—`),
         
-        // [OVERRIDE]
-        {
-          type: 'html',
-          content: `
-            <div style="
-              font-family: 'Consolas', 'Monaco', monospace;
-              background: linear-gradient(135deg, #0a150a 0%, #102010 100%);
-              border: 2px solid #4aff4a;
-              box-shadow: 0 0 30px rgba(74, 255, 74, 0.4);
-              padding: 1.5rem 2rem;
-              color: #4aff4a;
-              min-width: 320px;
-              text-align: center;
-              font-weight: bold;
-            ">
-              [OVERRIDE]
-            </div>
-          `
-        },
+        // Override
+        { type: 'html', content: `
+          <div style="
+            font-family: monospace;
+            background: linear-gradient(135deg, #0a150a 0%, #0d180d 100%);
+            border: 1px solid #4aff4a;
+            box-shadow: 0 0 20px rgba(74, 255, 74, 0.3);
+            padding: 1.25rem 1.5rem;
+            color: #4aff4a;
+            text-align: center;
+            font-weight: bold;
+            min-width: 300px;
+          ">
+            [OVERRIDE]
+          </div>
+        ` },
         
-        // [OVERRIDE ACCEPTED]
-        {
-          type: 'html',
-          content: `
-            <div style="
-              font-family: 'Consolas', 'Monaco', monospace;
-              background: linear-gradient(135deg, #0a150a 0%, #102010 100%);
-              border: 2px solid #4aff4a;
-              box-shadow: 0 0 30px rgba(74, 255, 74, 0.4);
-              padding: 1.5rem 2rem;
-              color: #4aff4a;
-              min-width: 320px;
-              text-align: center;
-              font-weight: bold;
-            ">
-              [OVERRIDE ACCEPTED]
-            </div>
-          `
-        },
+        { type: 'html', content: `
+          <div style="
+            font-family: monospace;
+            background: linear-gradient(135deg, #0a150a 0%, #0d180d 100%);
+            border: 1px solid #4aff4a;
+            box-shadow: 0 0 20px rgba(74, 255, 74, 0.3);
+            padding: 1.25rem 1.5rem;
+            color: #4aff4a;
+            text-align: center;
+            font-weight: bold;
+            min-width: 300px;
+          ">
+            [OVERRIDE ACCEPTED]
+          </div>
+        ` },
         
-        // New protocol generated
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
           <div>New protocol generated.</div>
         `, false),
         
-        // Option: Rebirth - Cost: Everything
+        // Cost: Everything
         systemPopup(`
           <div style="margin: 0.5rem 0;">Option: <span style="color: #ffcc00;">Rebirth</span></div>
           <div style="margin: 0.5rem 0;">Cost: <span style="color: #ff4a4a;">Everything.</span></div>
-          <div style="margin: 1rem 0;">Accept?</div>
-          <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-            <span style="border: 1px solid #4aff4a; padding: 0.25rem 1rem; color: #4aff4a;">[YES]</span>
-            <span style="border: 1px solid #4aff4a; padding: 0.25rem 1rem; color: #4aff4a;">[YES]</span>
+          <div style="margin: 0.75rem 0;">Accept?</div>
+          <div style="display: flex; gap: 0.75rem; margin-top: 0.75rem;">
+            <span style="border: 1px solid #4aff4a; padding: 0.2rem 0.75rem; color: #4aff4a;">[YES]</span>
+            <span style="border: 1px solid #4aff4a; padding: 0.2rem 0.75rem; color: #4aff4a;">[YES]</span>
           </div>
         `, false),
         
-        // Response: [YES]
         systemPopup(`
-          <div style="color: #4a9eff; font-size: 0.8rem; margin-bottom: 0.5rem;">System Management</div>
+          <div style="color: #4a9eff; font-size: 0.75rem; margin-bottom: 0.5rem;">System Management</div>
           <div>Response received: <span style="color: #4aff4a;">[YES]</span></div>
         `, false),
         
-        // Request: GRANTED
+        // Granted
         systemPopup(`
-          <div style="margin: 0.5rem 0; font-size: 1.1rem;">Request: <span style="color: #4aff4a;">GRANTED.</span></div>
+          <div style="margin: 0.5rem 0; font-size: 1rem;">Request: <span style="color: #4aff4a;">GRANTED.</span></div>
           <div style="margin: 0.5rem 0;">Passengers: <span style="color: #ffcc00;">2</span></div>
-          <div style="margin: 1rem 0;">Rebirth will commence.</div>
-          <div style="margin: 1rem 0 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem;">Destination: <span style="color: #666;">████-██-██</span></div>
-          <div style="margin: 0.5rem 0;">Remaining Survivors: <span style="color: #ffcc00;">1</span></div>
+          <div style="margin: 0.75rem 0;">Rebirth will commence.</div>
+          <div style="margin: 0.75rem 0 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem;">Destination: <span style="color: #444;">████-██-██</span></div>
+          <div style="margin: 0.3rem 0;">Remaining Survivors: <span style="color: #ffcc00;">1</span></div>
         `, false),
         
-        // Processing...
-        {
-          type: 'html',
-          content: `
-            <div style="
-              font-family: 'Consolas', 'Monaco', monospace;
-              background: linear-gradient(135deg, #0a0a15 0%, #101020 100%);
-              border: 2px solid #4a9eff;
-              padding: 1.5rem 2rem;
-              color: #4a9eff;
-              min-width: 320px;
-            ">
-              Processing…
-            </div>
-          `
-        },
+        { type: 'html', content: `<div style="font-family: monospace; color: #4a9eff; padding: 1rem;">Processing…</div>` },
         
-        // Remaining Survivors: 1 (repeating, breaking down)
         systemPopup(`<div>Remaining Survivors: <span style="color: #ffcc00;">1</span></div>`, false),
         systemPopup(`<div>Remaining Survivors: <span style="color: #ffcc00;">1</span></div>`, false),
         systemPopup(`<div>Remaining Survivors: <span style="color: #ffcc00;">1</span></div>`, false),
         
-        // Glitching - "Remaining Survivors: 0"
         glitchPopup(`
-          <div style="color: #666; font-size: 0.9rem;">System</div>
-          <div style="text-shadow: 2px 0 #ff0000, -2px 0 #00ff00;">Remaining Survivor s: <span style="color: #ff4a4a;">0</span></div>
+          <div style="color: #666; font-size: 0.85rem;">System</div>
+          <div>Remaining Survivor s: <span style="color: #ff4a4a;">0</span></div>
         `),
         
-        // Heavy glitch - survivors changing
         glitchPopup(`
-          <div style="text-shadow: 3px 0 #ff0000, -3px 0 #00ff00, 0 2px #0000ff;">
-            Remai__(n)i ng Su rvivo rs: <span style="color: #4aff4a;">2</span><br>
-            Re mani ng
-          </div>
+          Remai__(n)i ng Su rvivo rs: <span style="color: #4aff4a;">2</span><br>
+          Re mani ng
         `),
         
-        // Error: unexpected variable
         glitchPopup(`Errror: unekspec ted variab l`),
         
-        // "something is wrong"
-        glitchPopup(`<div style="text-shadow: 2px 0 #ff0000, -2px 0 #00ff00;">osmethi ng is wr on g</div>`),
+        glitchPopup(`osmethi ng is wr on g`),
         
-        // "i am / i / who / ?"
-        {
-          type: 'html',
-          content: `
-            <div style="
-              font-family: 'Consolas', 'Monaco', monospace;
-              background: linear-gradient(135deg, #0a0a15 0%, #101020 100%);
-              border: 2px solid #4a9eff;
-              box-shadow: 0 0 30px rgba(74, 158, 255, 0.4);
-              padding: 2rem;
-              color: #7eb8ff;
-              min-width: 320px;
-              text-align: center;
-              line-height: 2;
-            ">
-              <div>i a m</div>
-              <div>i</div>
-              <div>w ho</div>
-              <div>?</div>
-            </div>
-          `
-        },
+        { type: 'html', content: `
+          <div style="
+            font-family: monospace;
+            background: linear-gradient(135deg, #0a0a15 0%, #0d0d18 100%);
+            border: 1px solid #4a9eff;
+            padding: 1.5rem;
+            color: #7eb8ff;
+            text-align: center;
+            line-height: 1.8;
+            min-width: 200px;
+          ">
+            <div>i a m</div>
+            <div>i</div>
+            <div>w ho</div>
+            <div>?</div>
+          </div>
+        ` },
         
-        // SYSTEM MANAGEMENT HAS BEEN TEMPORARILY SUSPENDED
-        {
-          type: 'html',
-          content: `
-            <div style="
-              font-family: 'Consolas', 'Monaco', monospace;
-              background: #000;
-              border: 2px solid #333;
-              padding: 2rem;
-              color: #666;
-              min-width: 320px;
-              text-align: center;
-            ">
-              [SYSTEM MANAGEMENT HAS BEEN TEMPORARILY SUSPENDED]
-            </div>
-          `
-        }
+        // Final
+        { type: 'html', content: `
+          <div style="
+            font-family: monospace;
+            background: #000;
+            border: 1px solid #333;
+            padding: 1.5rem;
+            color: #555;
+            text-align: center;
+            min-width: 300px;
+          ">
+            [SYSTEM MANAGEMENT HAS BEEN TEMPORARILY SUSPENDED]
+          </div>
+        ` }
       ];
 
       // Start the sequence
-      PopupSystem.sequence.start(openingSequence, function() {
-        // Sequence complete - redirect to next chapter
-        // Or show a "Chapter 1 Complete" message
-        const chapterContent = document.getElementById('chapter-content');
-        if (chapterContent) {
-          chapterContent.style.opacity = '1';
-        }
+      PopupSystem.sequence.start(sequence, function() {
+        // Show end content and header
+        document.querySelector('.site-header').classList.add('is-visible');
+        document.getElementById('chapter-end').classList.add('is-visible');
       });
     });
   </script>
-
-  <!-- Disqus Comments -->
-  <script>
-    /**
-     * DISQUS CONFIGURATION
-     * Replace 'your-disqus-shortname' with your actual Disqus shortname
-     * You get this when you register your site at https://disqus.com/
-     */
-    var disqus_config = function () {
-      // Use the page URL as the unique identifier
-      this.page.url = window.location.href;
-      // Use a unique identifier for each chapter
-      this.page.identifier = 'chapter-001';
-      // Optional: Set the page title
-      this.page.title = 'Chapter 1: The Awakening';
-    };
-    
-    (function() {
-      var d = document, s = d.createElement('script');
-      // Replace 'your-disqus-shortname' with your shortname
-      s.src = 'https://your-disqus-shortname.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-    })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </body>
 </html>

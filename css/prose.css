@@ -1,0 +1,374 @@
+/* ============================================================
+   PROSE.CSS - Chapter Reading Theme with Background
+   ============================================================
+   Features:
+   - Full-page background image
+   - Banner image at top of chapter
+   - Semi-transparent content layer for text
+   - Clean, comfortable reading experience
+   
+   Apply this theme by adding class="theme-prose" to <body>
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   PAGE BACKGROUND
+   ------------------------------------------------------------ */
+
+.theme-prose {
+  background-color: #0a0a0f;
+  background-image: url('../assets/images/chapter_background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* ------------------------------------------------------------
+   CHAPTER BANNER (Top Image)
+   ------------------------------------------------------------ */
+
+.chapter-banner {
+  width: 100%;
+  max-height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.chapter-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Gradient fade at bottom of banner */
+.chapter-banner::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to top, rgba(10, 10, 15, 1), transparent);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   CONTENT LAYER (Semi-transparent box for text)
+   ------------------------------------------------------------ */
+
+.theme-prose .chapter {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md) var(--spacing-xl);
+}
+
+.chapter-content-wrapper {
+  background: rgba(10, 10, 15, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 4px;
+  padding: var(--spacing-xl);
+  margin-top: -50px; /* Overlap with banner */
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Subtle border */
+.chapter-content-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   CHAPTER HEADER
+   ------------------------------------------------------------ */
+
+.theme-prose .chapter-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-prose .chapter-number {
+  display: block;
+  font-size: calc(0.8rem * var(--font-scale));
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: var(--spacing-sm);
+}
+
+.theme-prose .chapter-title {
+  font-family: 'Georgia', serif;
+  font-size: calc(2rem * var(--font-scale));
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: #fff;
+  margin: 0;
+}
+
+.theme-prose .chapter-meta {
+  margin-top: var(--spacing-sm);
+  font-size: calc(0.85rem * var(--font-scale));
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ------------------------------------------------------------
+   PROSE CONTENT
+   ------------------------------------------------------------ */
+
+.theme-prose .chapter-content {
+  font-family: var(--font-prose);
+  font-size: calc(var(--font-size-base) * var(--font-scale));
+  line-height: var(--line-height-prose);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.theme-prose .chapter-content p {
+  margin-bottom: 1.5em;
+  text-align: justify;
+  text-wrap: pretty;
+}
+
+/* First paragraph - no indent */
+.theme-prose .chapter-content p:first-of-type {
+  text-indent: 0;
+}
+
+/* ------------------------------------------------------------
+   SCENE BREAKS
+   ------------------------------------------------------------ */
+
+.theme-prose .scene-break {
+  text-align: center;
+  margin: var(--spacing-xl) 0;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: calc(1.2rem * var(--font-scale));
+  letter-spacing: 0.5em;
+}
+
+.theme-prose .scene-break-line {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin: var(--spacing-xl) 0;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.theme-prose .scene-break-line::before,
+.theme-prose .scene-break-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+}
+
+/* ------------------------------------------------------------
+   TEXT STYLING
+   ------------------------------------------------------------ */
+
+.theme-prose .chapter-content em {
+  font-style: italic;
+}
+
+.theme-prose .chapter-content strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Thoughts / Internal monologue */
+.theme-prose .thought {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* System text inline */
+.theme-prose .system-text {
+  font-family: var(--font-mono);
+  font-size: calc(0.9rem * var(--font-scale));
+  color: #7eb8ff;
+  background: rgba(74, 158, 255, 0.1);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 4px;
+}
+
+/* System block */
+.theme-prose .system-block {
+  font-family: var(--font-mono);
+  font-size: calc(0.9rem * var(--font-scale));
+  background: rgba(74, 158, 255, 0.1);
+  border-left: 3px solid #4a9eff;
+  padding: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+  border-radius: 0 6px 6px 0;
+  color: #7eb8ff;
+}
+
+/* Whisper */
+.theme-prose .whisper {
+  font-size: calc(0.9em * var(--font-scale));
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Shout */
+.theme-prose .shout {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ------------------------------------------------------------
+   BLOCKQUOTES
+   ------------------------------------------------------------ */
+
+.theme-prose .chapter-content blockquote {
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-left: 3px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-prose .chapter-content blockquote cite {
+  display: block;
+  margin-top: var(--spacing-sm);
+  font-size: calc(0.85rem * var(--font-scale));
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.theme-prose .chapter-content blockquote cite::before {
+  content: '— ';
+}
+
+/* ------------------------------------------------------------
+   AUTHOR'S NOTE
+   ------------------------------------------------------------ */
+
+.theme-prose .author-note {
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: calc(0.9rem * var(--font-scale));
+}
+
+.theme-prose .author-note-header {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: var(--spacing-sm);
+}
+
+.theme-prose .author-note p {
+  text-align: left;
+  margin-bottom: var(--spacing-sm);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.theme-prose .author-note p:last-child {
+  margin-bottom: 0;
+}
+
+/* ------------------------------------------------------------
+   CHAPTER NAVIGATION (inside content wrapper)
+   ------------------------------------------------------------ */
+
+.theme-prose .chapter-nav {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-prose .chapter-nav-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.theme-prose .chapter-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.theme-prose .chapter-nav-center {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ------------------------------------------------------------
+   COMMENTS SECTION
+   ------------------------------------------------------------ */
+
+.theme-prose .comments-section {
+  background: rgba(10, 10, 15, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 4px;
+  padding: var(--spacing-xl);
+  margin-top: var(--spacing-lg);
+}
+
+.theme-prose .comments-header {
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ------------------------------------------------------------
+   MOBILE OPTIMIZATIONS
+   ------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .chapter-banner {
+    max-height: 200px;
+  }
+  
+  .chapter-content-wrapper {
+    padding: var(--spacing-lg) var(--spacing-md);
+    margin-top: -30px;
+    border-radius: 0;
+  }
+  
+  .theme-prose .chapter-title {
+    font-size: calc(1.5rem * var(--font-scale));
+  }
+  
+  .theme-prose .chapter-content p {
+    text-align: left;
+  }
+}
+
+/* ------------------------------------------------------------
+   PRINT STYLES
+   ------------------------------------------------------------ */
+
+@media print {
+  .theme-prose {
+    background: white;
+  }
+  
+  .chapter-banner,
+  .site-header,
+  .chapter-nav,
+  .comments-section,
+  .author-note {
+    display: none;
+  }
+  
+  .chapter-content-wrapper {
+    background: transparent;
+    box-shadow: none;
+  }
+  
+  .theme-prose .chapter-content {
+    color: black;
+    font-size: 12pt;
+  }
+}

@@ -58,13 +58,19 @@
        CHAPTER CONTENT
        ============================================================ -->
   <main>
+    <!-- Chapter Banner -->
+    <div class="chapter-banner">
+      <img src="../assets/images/chapter_banner.png" alt="">
+    </div>
+    
     <article class="chapter">
-      <header class="chapter-header">
-        <span class="chapter-number">Chapter 3</span>
-        <h1 class="chapter-title">—</h1>
-      </header>
+      <div class="chapter-content-wrapper">
+        <header class="chapter-header">
+          <span class="chapter-number">Chapter 3</span>
+          <h1 class="chapter-title">—</h1>
+        </header>
 
-      <div class="chapter-content">
+        <div class="chapter-content">
         
         <p>The Seoul Hunter Recruitment Fair was, in a word, loud.</p>
 
@@ -177,30 +183,31 @@
         <p>He straightened the pamphlets no one had taken.</p>
 
         <!-- End of chapter content -->
-      </div>
+        </div>
 
-      <!-- Chapter Navigation -->
-      <nav class="chapter-nav">
-        <a href="chapter-002-forum.html" class="chapter-nav-btn chapter-nav-prev">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-          Previous
-        </a>
-        
-        <a href="../index.html" class="chapter-nav-center">Table of Contents</a>
-        
-        <a href="chapter-004.html" class="chapter-nav-btn chapter-nav-next is-disabled">
-          Next
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </a>
-      </nav>
+        <!-- Chapter Navigation -->
+        <nav class="chapter-nav">
+          <a href="chapter-002-forum.html" class="chapter-nav-btn chapter-nav-prev">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Previous
+          </a>
+          
+          <a href="../index.html" class="chapter-nav-center">Table of Contents</a>
+          
+          <a href="chapter-004.html" class="chapter-nav-btn chapter-nav-next is-disabled">
+            Next
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </a>
+        </nav>
+      </div><!-- /chapter-content-wrapper -->
     </article>
 
     <!-- Comments Section -->
-    <section class="comments-section" style="max-width: var(--content-max-width); margin: 0 auto; padding: 0 var(--spacing-md) var(--spacing-xl);">
+    <section class="comments-section" style="max-width: 900px; margin: 0 auto; padding: 0 var(--spacing-md) var(--spacing-xl);">
       <h2 class="comments-header">Comments</h2>
       <div id="disqus_thread"></div>
     </section>

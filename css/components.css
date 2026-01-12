@@ -315,11 +315,11 @@
    All popups share these foundational styles.
    ------------------------------------------------------------ */
 
-/* Backdrop that covers the entire screen */
+/* Backdrop that covers the entire screen - BLACK */
 .popup-backdrop {
   position: fixed;
   inset: 0;
-  background-color: var(--color-overlay-backdrop);
+  background-color: #000;
   z-index: 500;
   
   /* Hidden by default */
@@ -333,12 +333,12 @@
   visibility: visible;
 }
 
-/* Base popup container */
+/* Base popup container - ALWAYS CENTERED */
 .popup {
   position: fixed;
   z-index: 510;
   
-  /* Default: centered */
+  /* Centered on screen */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
@@ -346,7 +346,7 @@
   /* Hidden by default */
   opacity: 0;
   visibility: hidden;
-  transition: all var(--transition-normal);
+  transition: opacity var(--transition-normal), transform var(--transition-normal), visibility var(--transition-normal);
 }
 
 .popup.is-visible {
@@ -389,22 +389,20 @@
    ------------------------------------------------------------
    Full-screen or large popups that appear one after another.
    Used for visual novel-style intros.
+   ALWAYS CENTERED - no shifting.
    ------------------------------------------------------------ */
 
 .popup-sequence {
-  /* Can be full-screen or large centered */
   width: 90vw;
-  max-width: 800px;
+  max-width: 600px;
   max-height: 90vh;
   overflow: auto;
-  background-color: var(--color-overlay-bg);
-  border-radius: 12px;
-  box-shadow: 0 20px 60px var(--color-shadow-strong);
+  background-color: transparent;
+  /* No background - the popup content handles its own styling */
 }
 
 .popup-sequence-content {
-  padding: var(--spacing-xl);
-  text-align: center;
+  /* Content styled inline in JS for flexibility */
 }
 
 .popup-sequence img {
@@ -417,13 +415,14 @@
 .popup-sequence-continue {
   margin-top: var(--spacing-lg);
   font-size: calc(0.9rem * var(--font-scale));
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
   animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
 }
 
 /* ------------------------------------------------------------
@@ -482,7 +481,7 @@
   line-height: 1.6;
 }
 
-/* Glitch animation for dramatic effect */
+/* Glitch animation for dramatic effect - NO POSITION SHIFT */
 .popup-system.glitch-enter {
   animation: glitchIn 0.3s ease-out;
 }
@@ -490,17 +489,17 @@
 @keyframes glitchIn {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8) skewX(10deg);
-    filter: hue-rotate(90deg);
+    filter: hue-rotate(90deg) brightness(2);
   }
-  50% {
-    transform: translate(-50%, -50%) scale(1.05) skewX(-5deg);
-    filter: hue-rotate(-30deg);
+  30% {
+    filter: hue-rotate(-30deg) brightness(1.5);
+  }
+  60% {
+    filter: hue-rotate(45deg) brightness(1.2);
   }
   100% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1) skewX(0);
-    filter: hue-rotate(0);
+    filter: hue-rotate(0) brightness(1);
   }
 }
 
