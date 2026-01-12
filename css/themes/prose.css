@@ -45,14 +45,14 @@
 
 .chapter-banner img {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1500px;
   height: auto;
   display: block;
   object-fit: cover;
 }
 
 /* Gradient fade at bottom of banner */
-.chapter-banner::after {
+/*.chapter-banner::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -68,7 +68,7 @@
    ------------------------------------------------------------ */
 
 .theme-prose .chapter {
-  max-width: 950px;
+  max-width: 1528px;
   margin: 0 auto;
   padding: 0 var(--spacing-md) var(--spacing-xl);
 }
@@ -79,7 +79,7 @@
 
 .chapter-content-wrapper {
   /* Semi-transparent dark box */
-  background: rgba(15, 15, 25, 0.95);
+  background: rgba(15, 15, 25, 1);
   
   /* Subtle border for definition */
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -89,7 +89,7 @@
   padding: var(--spacing-xl) var(--spacing-xl);
   
   /* Overlap with banner slightly */
-  margin-top: -40px;
+  margin-top: 0px;
   position: relative;
   z-index: 1;
   
@@ -399,3 +399,4 @@
     font-size: 12pt;
   }
 }
+
