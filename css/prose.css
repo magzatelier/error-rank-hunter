@@ -3,8 +3,8 @@
    ============================================================
    Features:
    - Full-page background image
-   - Banner image at top of chapter
-   - Semi-transparent content layer for text
+   - Banner image at top of chapter (centered)
+   - Semi-transparent content container for text
    - Clean, comfortable reading experience
    
    Apply this theme by adding class="theme-prose" to <body>
@@ -16,26 +16,36 @@
 
 .theme-prose {
   background-color: #0a0a0f;
-  background-image: url('../assets/images/chapter_background.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
   min-height: 100vh;
 }
 
+/* Background image - set via inline style or here */
+.theme-prose.has-background {
+  background-image: url('../../assets/images/chapter_background.png');
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
 /* ------------------------------------------------------------
-   CHAPTER BANNER (Top Image)
+   CHAPTER BANNER (Top Image) - CENTERED
    ------------------------------------------------------------ */
 
 .chapter-banner {
   width: 100%;
-  max-height: 300px;
+  max-width: 100%;
   overflow: hidden;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0a0a0f;
 }
 
 .chapter-banner img {
   width: 100%;
+  max-width: 1200px;
   height: auto;
   display: block;
   object-fit: cover;
@@ -48,40 +58,54 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100px;
-  background: linear-gradient(to top, rgba(10, 10, 15, 1), transparent);
+  height: 80px;
+  background: linear-gradient(to top, #0a0a0f, transparent);
   pointer-events: none;
 }
 
 /* ------------------------------------------------------------
-   CONTENT LAYER (Semi-transparent box for text)
+   MAIN CHAPTER CONTAINER
    ------------------------------------------------------------ */
 
 .theme-prose .chapter {
-  max-width: 900px;
+  max-width: 950px;
   margin: 0 auto;
   padding: 0 var(--spacing-md) var(--spacing-xl);
 }
 
+/* ------------------------------------------------------------
+   CONTENT CONTAINER (The visible box behind text)
+   ------------------------------------------------------------ */
+
 .chapter-content-wrapper {
-  background: rgba(10, 10, 15, 0.92);
-  backdrop-filter: blur(10px);
+  /* Semi-transparent dark box */
+  background: rgba(15, 15, 25, 0.95);
+  
+  /* Subtle border for definition */
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
-  padding: var(--spacing-xl);
-  margin-top: -50px; /* Overlap with banner */
+  
+  /* Padding inside the box */
+  padding: var(--spacing-xl) var(--spacing-xl);
+  
+  /* Overlap with banner slightly */
+  margin-top: -40px;
   position: relative;
   z-index: 1;
+  
+  /* Subtle shadow */
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Subtle border */
+/* Optional glow effect */
 .chapter-content-wrapper::before {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -1px;
   border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  pointer-events: none;
+  background: linear-gradient(135deg, rgba(74, 158, 255, 0.1), transparent, rgba(128, 90, 213, 0.1));
+  z-index: -1;
+  opacity: 0.5;
 }
 
 /* ------------------------------------------------------------
@@ -309,8 +333,8 @@
    ------------------------------------------------------------ */
 
 .theme-prose .comments-section {
-  background: rgba(10, 10, 15, 0.92);
-  backdrop-filter: blur(10px);
+  background: rgba(15, 15, 25, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 4px;
   padding: var(--spacing-xl);
   margin-top: var(--spacing-lg);
@@ -332,8 +356,10 @@
   
   .chapter-content-wrapper {
     padding: var(--spacing-lg) var(--spacing-md);
-    margin-top: -30px;
+    margin-top: -20px;
     border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
   
   .theme-prose .chapter-title {
@@ -365,6 +391,7 @@
   .chapter-content-wrapper {
     background: transparent;
     box-shadow: none;
+    border: none;
   }
   
   .theme-prose .chapter-content {

@@ -14,10 +14,18 @@
   
   <style>
     /* Chapter 1 - Pure black background during popups */
-    body {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
       background-color: #000;
       min-height: 100vh;
       margin: 0;
+      padding: 0;
+      overflow-x: hidden;
     }
     
     /* Header hidden during popup sequence */
@@ -98,6 +106,19 @@
     /* Override popup backdrop to pure black */
     .popup-backdrop {
       background-color: #000 !important;
+    }
+    
+    /* Force popup centering */
+    .popup {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      margin: 0 !important;
+    }
+    
+    .popup.is-visible {
+      transform: translate(-50%, -50%) !important;
     }
   </style>
 </head>

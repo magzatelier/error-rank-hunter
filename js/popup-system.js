@@ -528,6 +528,184 @@
   };
 
   // ============================================================
+  // IMAGE GALLERY VIEWER (For multi-page documents like pamphlets)
+  // ============================================================
+
+  const ImageGallery = {
+    container: null,
+    isOpen: false,
+    currentPage: 0,
+    images: [],
+    title: '',
+
+    /**
+     * Open image gallery
+     * @param {Object} options - { images: [], title: string }
+     * images array should be paths like ['path/to/page1.png', 'path/to/page2.png', ...]
+     */
+    open(options) {
+      if (this.isOpen) return;
+
+      this.images = options.images || [];
+      this.title = options.title || 'Gallery';
+      this.currentPage = 0;
+
+      if (this.images.length === 0) {
+        console.warn('ImageGallery: No images provided');
+        return;
+      }
+
+      this.createGallery();
+      this.isOpen = true;
+
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+
+      // Show gallery
+      requestAnimationFrame(() => {
+        this.container.classList.add('is-visible');
+      });
+    },
+
+    createGallery() {
+      // Remove existing if any
+      if (this.container) {
+        this.container.remove();
+      }
+
+      this.container = document.createElement('div');
+      this.container.className = 'image-gallery';
+      this.container.innerHTML = `
+        <div class="image-gallery-header">
+          <div class="image-gallery-title">${this.title}</div>
+          <div class="image-gallery-page">Page <span class="current-page">1</span> of ${this.images.length}</div>
+          <button class="image-gallery-close" aria-label="Close">&times;</button>
+        </div>
+        <div class="image-gallery-content">
+          <button class="image-gallery-nav prev" aria-label="Previous page">&#8249;</button>
+          <img src="${this.images[0]}" alt="Page 1">
+          <button class="image-gallery-nav next" aria-label="Next page">&#8250;</button>
+        </div>
+        <div class="image-gallery-footer">
+          ${this.images.map((_, i) => `<button class="image-gallery-dot ${i === 0 ? 'is-active' : ''}" data-page="${i}" aria-label="Go to page ${i + 1}"></button>`).join('')}
+        </div>
+      `;
+
+      document.body.appendChild(this.container);
+      this.bindGalleryEvents();
+      this.updateNavState();
+    },
+
+    bindGalleryEvents() {
+      // Close button
+      this.container.querySelector('.image-gallery-close').addEventListener('click', () => this.close());
+
+      // Nav buttons
+      this.container.querySelector('.prev').addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.prevPage();
+      });
+
+      this.container.querySelector('.next').addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.nextPage();
+      });
+
+      // Dot navigation
+      this.container.querySelectorAll('.image-gallery-dot').forEach(dot => {
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.goToPage(parseInt(dot.dataset.page));
+        });
+      });
+
+      // Keyboard navigation
+      this.keyHandler = (e) => {
+        if (!this.isOpen) return;
+        
+        if (e.key === 'Escape') {
+          this.close();
+        } else if (e.key === 'ArrowLeft') {
+          this.prevPage();
+        } else if (e.key === 'ArrowRight') {
+          this.nextPage();
+        }
+      };
+      document.addEventListener('keydown', this.keyHandler);
+
+      // Click on backdrop to close
+      this.container.addEventListener('click', (e) => {
+        if (e.target === this.container || e.target.classList.contains('image-gallery-content')) {
+          // Don't close when clicking on content - only on backdrop
+        }
+      });
+    },
+
+    goToPage(pageIndex) {
+      if (pageIndex < 0 || pageIndex >= this.images.length) return;
+      
+      this.currentPage = pageIndex;
+      
+      // Update image
+      const img = this.container.querySelector('.image-gallery-content img');
+      img.src = this.images[this.currentPage];
+      img.alt = `Page ${this.currentPage + 1}`;
+
+      // Update page counter
+      this.container.querySelector('.current-page').textContent = this.currentPage + 1;
+
+      // Update dots
+      this.container.querySelectorAll('.image-gallery-dot').forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === this.currentPage);
+      });
+
+      // Update nav state
+      this.updateNavState();
+    },
+
+    prevPage() {
+      if (this.currentPage > 0) {
+        this.goToPage(this.currentPage - 1);
+      }
+    },
+
+    nextPage() {
+      if (this.currentPage < this.images.length - 1) {
+        this.goToPage(this.currentPage + 1);
+      }
+    },
+
+    updateNavState() {
+      const prevBtn = this.container.querySelector('.prev');
+      const nextBtn = this.container.querySelector('.next');
+      
+      prevBtn.disabled = this.currentPage === 0;
+      nextBtn.disabled = this.currentPage === this.images.length - 1;
+    },
+
+    close() {
+      if (!this.isOpen) return;
+      
+      this.isOpen = false;
+      document.body.style.overflow = '';
+      
+      // Remove keyboard handler
+      if (this.keyHandler) {
+        document.removeEventListener('keydown', this.keyHandler);
+      }
+
+      this.container.classList.remove('is-visible');
+
+      setTimeout(() => {
+        if (this.container) {
+          this.container.remove();
+          this.container = null;
+        }
+      }, 300);
+    }
+  };
+
+  // ============================================================
   // INITIALIZATION
   // ============================================================
 
@@ -565,6 +743,12 @@
     document: {
       open: (options) => DocumentViewer.open(options),
       close: () => DocumentViewer.close()
+    },
+
+    // Image gallery (for multi-page documents)
+    gallery: {
+      open: (options) => ImageGallery.open(options),
+      close: () => ImageGallery.close()
     },
 
     // Utility

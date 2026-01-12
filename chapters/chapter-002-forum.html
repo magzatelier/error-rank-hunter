@@ -324,8 +324,8 @@
           <p class="thread-item-desc">I need to know if I'm overreacting or if this is insane</p>
           
           <!-- PDF Link -->
-          <div class="pdf-link" data-document-viewer="true" data-type="pdf" data-title="So You Want To Know About Hunters! — A Guide For Young Readers">
-            So You Want To Know About Hunters! — A Guide For Young Readers (PDF)
+          <div class="pdf-link" data-gallery="true" data-title="So You Want To Know About Hunters! — A Guide For Young Readers">
+            📄 So You Want To Know About Hunters! — A Guide For Young Readers
           </div>
           
           <div class="thread-comments">
@@ -403,6 +403,44 @@
   <script>
     // Store article content for the document viewer
     const articleContent = {
+      'Korea Times - First Rift Anniversary': `
+        <h1>Nine Years Since the First Rift: Are We Any Closer to Understanding?</h1>
+        <p class="article-meta">By Choi Yeonhwa | Korea Times | Special Report</p>
+        
+        <p>Nine years ago this week, a convenience store clerk in Mapo-gu became the first human being to witness a gate.</p>
+        
+        <p>Kim Taeshik, then 34, was restocking cigarettes when a fissure of light split the air beside the refrigerated drinks. He described it to first responders as "a wound in the world." Within 72 hours, 847 gates had opened across the Korean peninsula. Within a month, the global count exceeded 40,000.</p>
+        
+        <p>Today, we live in a world shaped entirely by that moment. Hunters walk among us. Dungeons are cleared on schedules. Mana crystals power our technology. Children grow up ranking each other by awakening potential. The System — capital S, as it has come to be known — is simply part of life.</p>
+        
+        <p>And yet.</p>
+        
+        <p>Nine years later, we cannot answer the most basic questions. Where do the gates come from? Why do some people awaken and others don't? What determines rank? Why did this happen at all?</p>
+        
+        <p>"We've made remarkable progress in <em>utilizing</em> the System," admits Dr. Park Jiyeon of the Korea Institute for Rift Studies. "We've made almost no progress in <em>understanding</em> it."</p>
+        
+        <p>The Institute's annual report, released last week, makes for sobering reading. Of the 142 research questions identified in Year One, only three have been definitively answered. Seventeen have been abandoned as "fundamentally unanswerable with current methodology." The rest remain open.</p>
+        
+        <p>Meanwhile, the questions that matter most to ordinary citizens go unaddressed. Why did 4,291 Koreans die in the first three days while others gained powers beyond imagination? Why do some families produce multiple hunters while others produce none? Is awakening truly random, as the Association maintains, or are there patterns we refuse to see?</p>
+        
+        <p>"We've built an entire society on a foundation we don't understand," says sociologist Kim Minhyuk. "We rank human beings by a system none of us created and none of us can explain. We've simply... accepted it."</p>
+        
+        <p>The Hunter Association declined to comment for this article.</p>
+        
+        <p>Perhaps most troubling is the lack of public urgency. In Year One, "Why?" was the question on everyone's lips. Now it barely registers. We have adapted. We have moved on. We have children who have never known a world without gates, who find the very question strange.</p>
+        
+        <p>Kim Taeshik, the convenience store clerk, still lives in Mapo-gu. He never awakened. He still works retail, though at a different store now — the original was destroyed in a dungeon break in Year Two.</p>
+        
+        <p>When asked if he thinks about that first gate, he shrugs.</p>
+        
+        <p>"What's there to think about?" he says. "It happened. This is the world now."</p>
+        
+        <p>Nine years. No answers. And a society that has, perhaps, stopped asking.</p>
+        
+        <p style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; font-style: italic; color: #666;">
+        A memorial service for victims of the First Rift will be held at Seoul National Cemetery on Saturday. President Yoon is expected to attend.
+        </p>
+      `,
       'Hunter Daily - Vanguard Guild Warning': `
         <h1>Vanguard Guild Receives Sixth Association Warning After Unauthorized Dungeon Entry</h1>
         <p class="article-meta">Hunter Daily | Thursday</p>
@@ -520,6 +558,7 @@
 
     // Override document viewer to use stored content
     document.addEventListener('DOMContentLoaded', function() {
+      // Handle article embeds
       document.querySelectorAll('[data-document-viewer]').forEach(el => {
         el.addEventListener('click', function(e) {
           e.preventDefault();
@@ -533,6 +572,32 @@
               content: `<div class="article-content">${content}</div>`
             });
           }
+        });
+      });
+
+      // Handle pamphlet image gallery
+      document.querySelectorAll('[data-gallery]').forEach(el => {
+        el.addEventListener('click', function(e) {
+          e.preventDefault();
+          const title = this.dataset.title;
+          
+          // Pamphlet has 9 pages - adjust these paths to match your image files
+          const pamphletImages = [
+            '../assets/images/pamphlet/page-1.png',
+            '../assets/images/pamphlet/page-2.png',
+            '../assets/images/pamphlet/page-3.png',
+            '../assets/images/pamphlet/page-4.png',
+            '../assets/images/pamphlet/page-5.png',
+            '../assets/images/pamphlet/page-6.png',
+            '../assets/images/pamphlet/page-7.png',
+            '../assets/images/pamphlet/page-8.png',
+            '../assets/images/pamphlet/page-9.png'
+          ];
+          
+          PopupSystem.gallery.open({
+            title: title,
+            images: pamphletImages
+          });
         });
       });
     });

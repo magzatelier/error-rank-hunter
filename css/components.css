@@ -648,3 +648,173 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* ------------------------------------------------------------
+   IMAGE GALLERY VIEWER (For pamphlet with multiple pages)
+   ------------------------------------------------------------
+   Full-screen viewer with prev/next navigation for viewing
+   multiple images like a pamphlet or document.
+   ------------------------------------------------------------ */
+
+.image-gallery {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  background: rgba(0, 0, 0, 0.97);
+  display: flex;
+  flex-direction: column;
+  
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.image-gallery.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Gallery Header */
+.image-gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.image-gallery-title {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+.image-gallery-page {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.image-gallery-close {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.image-gallery-close:hover {
+  color: #fff;
+}
+
+/* Gallery Content Area */
+.image-gallery-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem;
+}
+
+.image-gallery-content img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Navigation Arrows */
+.image-gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.5rem;
+}
+
+.image-gallery-nav:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.image-gallery-nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.image-gallery-nav.prev {
+  left: 1.5rem;
+}
+
+.image-gallery-nav.next {
+  right: 1.5rem;
+}
+
+/* Gallery Footer with page dots */
+.image-gallery-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.image-gallery-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.image-gallery-dot:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.image-gallery-dot.is-active {
+  background: #fff;
+  transform: scale(1.2);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .image-gallery-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .image-gallery-nav.prev {
+    left: 0.5rem;
+  }
+  
+  .image-gallery-nav.next {
+    right: 0.5rem;
+  }
+  
+  .image-gallery-content {
+    padding: 1rem;
+  }
+}
